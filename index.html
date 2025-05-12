@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JK Sec - Mindful Cyber Security</title>
+    <style>
+        :root {
+            --primary-bg: #f5ebe0; /* Warm cream background */
+            --secondary-bg: #e3d5ca; /* Soft tan accent */
+            --text-color: #5c4d3c; /* Rich coffee brown text */
+            --accent-color: #d5bdaf; /* Muted terracotta */
+            --dark-accent: #9a857a; /* Mocha accent */
+            --highlight: #edede9; /* Light highlight */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Garamond', serif;
+        }
+        
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+        
+        header {
+            padding: 2rem;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            transition: background-color 0.3s ease;
+            background-color: rgba(245, 235, 224, 0.95);
+        }
+        
+        header.scrolled {
+            background-color: rgba(245, 235, 224, 0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+        
+        .logo span {
+            color: var(--dark-accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--dark-accent);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+            background-color: var(--primary-bg);
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            border: 1px solid var(--dark-accent);
+            color: var(--text-color);
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            background: transparent;
+            letter-spacing: 1px;
+        }
+        
+        .btn:hover {
+            background-color: var(--dark-accent);
+            color: var(--highlight);
+        }
+        
+        section {
+            padding: 6rem 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 1px;
+            background-color: var(--dark-accent);
+        }
+        
+        .services {
+            background-color: var(--highlight);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+        
+        .service-card {
+            text-align: center;
+            padding: 2rem;
+            transition: transform 0.3s;
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-accent);
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+        
+        .about {
+            background-color: var(--primary-bg);
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 3px;
+        }
+        
+        .projects {
+            background-color: var(--highlight);
+            padding: 6rem 2rem;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .project-card {
+            background-color: var(--primary-bg);
+            border-radius: 3px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-image, .project-video {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-image img, .video-placeholder img {
+            width: 100%;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .project-card:hover .project-image img,
+        .project-card:hover .video-placeholder img {
+            transform: scale(1.03);
+        }
+        
+        .project-content {
+            padding: 2rem;
+        }
+        
+        .project-content h3 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 0.8rem;
+            color: var(--text-color);
+        }
+        
+        .project-meta {
+            display: flex;
+            font-size: 0.9rem;
+            color: var(--dark-accent);
+            margin-bottom: 1rem;
+        }
+        
+        .project-date {
+            margin-right: 1.5rem;
+        }
+        
+        .read-more {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--dark-accent);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+        }
+        
+        .read-more:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--dark-accent);
+            transition: width 0.3s;
+        }
+        
+        .read-more:hover:after {
+            width: 100%;
+        }
+        
+        .video-placeholder {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--dark-accent);
+            transition: background-color 0.3s;
+        }
+        
+        .video-placeholder:hover .play-button {
+            background-color: rgba(255,255,255,0.9);
+        }
+        
+        /* Admin Section */
+        .admin-section {
+            background-color: var(--primary-bg);
+            padding: 2rem;
+            border-radius: 3px;
+            margin-top: 4rem;
+        }
+        
+        .admin-section h3 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+        }
+        
+        .new-project-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .content-editor {
+            min-height: 300px;
+        }
+        
+        .media-upload-area {
+            border: 2px dashed var(--accent-color);
+            padding: 2rem;
+            text-align: center;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .media-upload-area:hover {
+            background-color: rgba(0,0,0,0.02);
+        }
+        
+        .media-upload-area input[type="file"] {
+            display: none;
+        }
+        
+        .upload-instructions {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .supported-formats {
+            font-size: 0.9rem;
+            color: var(--dark-accent);
+        }
+        
+        .media-preview {
+            margin-top: 1rem;
+        }
+        
+        .media-preview h4 {
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+        
+        .preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .contact {
+            background-color: var(--primary-bg);
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+        
+        .contact-icon {
+            margin-right: 1rem;
+            font-size: 1.2rem;
+            color: var(--dark-accent);
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.7rem;
+            font-size: 1rem;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--highlight);
+            border: none;
+            border-bottom: 1px solid var(--accent-color);
+            font-size: 1rem;
+            font-family: 'Garamond', serif;
+            color: var(--text-color);
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-bottom: 1px solid var(--dark-accent);
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        button {
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--dark-accent);
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            align-self: flex-start;
+            letter-spacing: 1px;
+            font-family: 'Garamond', serif;
+        }
+        
+        button:hover {
+            background-color: var(--dark-accent);
+            color: var(--highlight);
+        }
+        
+        footer {
+            background-color: var(--secondary-bg);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin: 2rem 0;
+        }
+        
+        .footer-links li {
+            margin: 0 1.5rem;
+        }
+        
+        .footer-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--dark-accent);
+        }
+        
+        .social-links {
+            margin: 2rem 0;
+        }
+        
+        .social-links a {
+            color: var(--text-color);
+            margin: 0 1rem;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image {
+                order: -1;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                JK<span>Sec</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <h1>Security with Simplicity, Protection with Purpose</h1>
+        <p>Modern cyber security solutions, thoughtfully crafted for your peace of mind.</p>
+        <a href="#contact" class="btn">Start a Conversation</a>
+    </section>
+
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">Our Expertise</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🔒</div>
+                    <h3>Network Protection</h3>
+                    <p>Thoughtful security architecture that safeguards your digital environment without compromising workflow.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🛡️</div>
+                    <h3>Vulnerability Assessment</h3>
+                    <p>Mindful testing that reveals security gaps before they can be exploited by malicious actors.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">👥</div>
+                    <h3>Security Culture</h3>
+                    <p>Building awareness and positive security habits within your team through education and practice.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">Our Philosophy</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>At JK Sec, we approach security like a well-crafted brew – methodical, attentive, and refined. We believe that the best security solutions are those that feel natural and unobtrusive while providing robust protection.</p>
+                    <p>Our team brings together deep technical expertise with a genuine understanding of how people interact with technology. This human-centered approach allows us to create security measures that work with your team's natural flow, not against it.</p>
+                    <p>We value simplicity, transparency, and ongoing relationships that evolve with your needs and the changing digital landscape.</p>
+                </div>
+                <div class="about-image">
+                    <img src="/api/placeholder/500/400" alt="Thoughtful security planning">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="projects" id="projects">
+        <div class="container">
+            <h2 class="section-title">Recent Projects</h2>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <article class="project-card">
+                    <div class="project-image">
+                        <img src="/api/placeholder/600/400" alt="Network security project">
+                    </div>
+                    <div class="project-content">
+                        <h3>Enterprise Network Hardening</h3>
+                        <div class="project-meta">
+                            <span class="project-date">May 5, 2025</span>
+                            <span class="project-category">Network Security</span>
+                        </div>
+                        <p>An in-depth look at our recent work hardening a financial institution's network infrastructure against emerging threats.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </article>
+                
+                <!-- Project 2 -->
+                <article class="project-card">
+                    <div class="project-image">
+                        <img src="/api/placeholder/600/400" alt="Zero trust implementation">
+                    </div>
+                    <div class="project-content">
+                        <h3>Zero Trust Architecture Implementation</h3>
+                        <div class="project-meta">
+                            <span class="project-date">April 18, 2025</span>
+                            <span class="project-category">Security Architecture</span>
+                        </div>
+                        <p>How we helped a healthcare provider transition to a zero trust security model while maintaining operational efficiency.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </article>
+                
+                <!-- Project 3 -->
+                <article class="project-card">
+                    <div class="project-video">
+                        <div class="video-placeholder">
+                            <img src="/api/placeholder/600/400" alt="Security awareness training video thumbnail">
+                            <div class="play-button">▶</div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Security Awareness Training Program</h3>
+                        <div class="project-meta">
+                            <span class="project-date">March 24, 2025</span>
+                            <span class="project-category">Training & Awareness</span>
+                        </div>
+                        <p>A customized security awareness program we developed for a retail chain with over 500 employees.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </article>
+            </div>
+            
+            <!-- Admin Section (normally would be password protected) -->
+            <div class="admin-section">
+                <h3>Add New Project</h3>
+                <form class="new-project-form">
+                    <div class="form-group">
+                        <label for="project-title">Project Title</label>
+                        <input type="text" id="project-title" name="project-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="project-category">Category</label>
+                        <input type="text" id="project-category" name="project-category" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="project-description">Project Description</label>
+                        <textarea id="project-description" name="project-description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="project-content">Full Content</label>
+                        <textarea id="project-content" name="project-content" class="content-editor" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="project-media">Upload Media</label>
+                        <div class="media-upload-area">
+                            <input type="file" id="project-media" name="project-media" accept="image/*,video/*" multiple>
+                            <p class="upload-instructions">Drag and drop files here, or click to select files</p>
+                            <p class="supported-formats">Supported formats: JPG, PNG, GIF, MP4, WEBM</p>
+                        </div>
+                    </div>
+                    <div class="media-preview">
+                        <h4>Media Preview</h4>
+                        <div class="preview-container">
+                            <!-- Preview items would appear here via JavaScript -->
+                        </div>
+                    </div>
+                    <button type="submit" class="btn">Publish Project</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Connect With Us</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Let's Start a Conversation</h3>
+                    <p>We believe security begins with understanding. Reach out to discuss how we can craft the right approach for your unique needs.</p>
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <span>123 Mindful Avenue, Suite 101<br>Tranquil District, TX 10010</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📞</span>
+                        <span>+1 (555) 123-4567</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">✉️</span>
+                        <span>hello@jksec.com</span>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="logo">
+                JK<span>Sec</span>
+            </div>
+            <ul class="footer-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="social-links">
+                <a href="#" aria-label="LinkedIn">in</a>
+                <a href="#" aria-label="Twitter">tw</a>
+                <a href="#" aria-label="Email">@</a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 JK Sec. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add scrolled class to header on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Project Media Upload Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('project-media');
+            const uploadArea = document.querySelector('.media-upload-area');
+            const previewContainer = document.querySelector('.preview-container');
+            
+            if (fileInput && uploadArea && previewContainer) {
+                // Click on upload area to trigger file input
+                uploadArea.addEventListener('click', function() {
+                    fileInput.click();
+                });
+                
+                // Handle drag and drop events
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    uploadArea.addEventListener(eventName, preventDefaults, false);
+                });
+                
+                function preventDefaults(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    uploadArea.addEventListener(eventName, highlight, false);
+                });
+                
+                ['dragleave', 'drop'].forEach(eventName => {
+                    uploadArea.addEventListener(eventName, unhighlight, false);
+                });
+                
+                function highlight() {
+                    uploadArea.classList.add('highlight');
+                }
+                
+                function unhighlight() {
+                    uploadArea.classList.remove('highlight');
+                }
+                
+                // Handle file drop
+                uploadArea.addEventListener('drop', handleDrop, false);
+                
+                function handleDrop(e) {
+                    const dt = e.dataTransfer;
+                    const files = dt.files;
+                    fileInput.files = files;
+                    handleFiles(files);
+                }
+                
+                // Handle file selection via input
+                fileInput.addEventListener('change', function() {
+                    handleFiles(this.files);
+                });
+                
+                function handleFiles(files) {
+                    previewContainer.innerHTML = ''; // Clear previous previews
+                    
+                    [...files].forEach(file => {
+                        // Check if the file is an image
+                        if (file.type.match('image.*')) {
+                            const reader = new FileReader();
+                            
+                            reader.onload = function(e) {
+                                const preview = document.createElement('div');
+                                preview.className = 'preview-item';
+                                preview.innerHTML = `
+                                    <img src="${e.target.result}" alt="Preview">
+                                    <span class="file-name">${file.name}</span>
+                                    <button type="button" class="remove-btn">&times;</button>
+                                `;
+                                previewContainer.appendChild(preview);
+                                
+                                // Add remove functionality
+                                preview.querySelector('.remove-btn').addEventListener('click', function() {
+                                    preview.remove();
+                                });
+                            };
+                            
+                            reader.readAsDataURL(file);
+                        }
+                        // Check if the file is a video
+                        else if (file.type.match('video.*')) {
+                            const preview = document.createElement('div');
+                            preview.className = 'preview-item video-preview';
+                            preview.innerHTML = `
+                                <video controls>
+                                    <source src="${URL.createObjectURL(file)}" type="${file.type}">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <span class="file-name">${file.name}</span>
+                                <button type="button" class="remove-btn">&times;</button>
+                            `;
+                            previewContainer.appendChild(preview);
+                            
+                            // Add remove functionality
+                            preview.querySelector('.remove-btn').addEventListener('click', function() {
+                                preview.remove();
+                            });
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

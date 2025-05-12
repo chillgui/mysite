@@ -323,6 +323,7 @@
         
         /* Admin Section */
         .admin-section {
+    display: none;
             background-color: var(--primary-bg);
             padding: 2rem;
             border-radius: 3px;
@@ -671,7 +672,16 @@
                 </article>
             </div>
             
-            <!-- Admin Section (normally would be password protected) -->
+            
+<!-- Admin Login Form -->
+<div class="admin-login" style="margin-top: 3rem; text-align: center;">
+    <h3>Admin Login</h3>
+    <input type="password" id="admin-password" placeholder="Enter admin password" style="padding: 0.5rem; font-size: 1rem;">
+    <button onclick="checkAdminPassword()" class="btn">Login</button>
+    <p id="login-message" style="color: red; margin-top: 1rem;"></p>
+</div>
+
+<!-- Admin Section (normally would be password protected) -->
             <div class="admin-section">
                 <h3>Add New Project</h3>
                 <form class="new-project-form">
@@ -888,6 +898,23 @@
                 }
             }
         });
-    </script>
+    
+    function checkAdminPassword() {
+        const passwordInput = document.getElementById('admin-password').value;
+        const loginMessage = document.getElementById('login-message');
+        const adminSection = document.querySelector('.admin-section');
+
+        const correctPassword = "admin123"; // Change this to your actual password
+
+        if (passwordInput === correctPassword) {
+            adminSection.style.display = "block";
+            loginMessage.textContent = "";
+            document.querySelector('.admin-login').style.display = 'none';
+        } else {
+            loginMessage.textContent = "Incorrect password. Please try again.";
+        }
+    }
+
+</script>
 </body>
 </html>
